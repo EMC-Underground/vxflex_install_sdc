@@ -4,6 +4,8 @@
   copy:
     src: ./files/EMC-ScaleIO-sdc-{{vxflex_version}}.el7.x86_64.rpm
     dest: /tmp/EMC-ScaleIO-sdc-{{vxflex_version}}.el7.x86_64.rpm
+  tags:
+    - sdc
 
 - name: Install SDC
   yum:
@@ -11,3 +13,5 @@
     state: present
   environment:
     MDM_IP: "{{ vxflex_master_mdm_ip | join(',') }},{{ vxflex_standby_mdm_ip | join(',')}}"
+  tags:
+    - sdc
