@@ -1,17 +1,29 @@
 ---
 # tasks file for vxflex_install_sdc
-- name: Copies the scaleio client to /tmp
+- name: "Copies the scaleio client for CentOS to /tmp"
   copy:
     src: ./files/EMC-ScaleIO-sdc-{{vxflex_version}}.el7.x86_64.rpm
     dest: /tmp/EMC-ScaleIO-sdc-{{vxflex_version}}.el7.x86_64.rpm
+  when: ansible_facts['distribution'] == "CentOS"
   tags:
     - sdc
 
-- name: Install SDC
+- name: "Install SDC on CentOS"
   yum:
     name: /tmp/EMC-ScaleIO-sdc-{{vxflex_version}}.el7.x86_64.rpm
     state: present
   environment:
     MDM_IP: "{{ vxflex_master_mdm_ip | join(',') }},{{ vxflex_standby_mdm_ip | join(',')}}"
+  when: ansible_facts['distribution'] == "CentOS"
   tags:
     - sdc
+
+- name: "Copy SDC vib for ESXi"
+  copy:
+    src: ./files/sdc-{{ vxflex_version }}-esx6.0.zip
+    dest: /tmp/
+#  when: ansible_facts['distribution'] == "CentOS"
+  tags:
+    - sdc
+    - esxi
+
