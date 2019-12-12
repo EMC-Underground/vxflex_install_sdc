@@ -22,7 +22,7 @@
   copy:
     src: ./files/sdc-{{ vxflex_version }}-esx6.0.zip
     dest: /tmp/
-#  when: ansible_facts['distribution'] == "CentOS"
+  when: ansible_facts['distribution'] == "VMware"
   tags:
     - sdc
     - esxi
