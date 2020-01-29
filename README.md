@@ -1,12 +1,13 @@
 Role Name
 =========
 
-A brief description of the role goes here.
+This role will install the vxFlex SDC client on the host and connect that client to
+the cluter.
 
 Requirements
 ------------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+You will need to download and place the SDC .rpm file into the /files directory
 
 Role Variables
 --------------
