@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.com/EMC-Underground/vxflex_install_sdc.svg?branch=master)](https://travis-ci.com/EMC-Underground/vxflex_install_sdc)
 Role Name
 =========
 
