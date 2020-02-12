@@ -13,7 +13,7 @@
     name: /tmp/EMC-ScaleIO-sdc-{{ vxflex_version }}.el7.x86_64.rpm
     state: present
   environment:
-    MDM_IP: {{ vxflex_vip_ip }}
+    MDM_IP: "{{ vxflex_vip_ip }}"
   when: ansible_facts['distribution'] == "CentOS"
   tags:
     - sdc
