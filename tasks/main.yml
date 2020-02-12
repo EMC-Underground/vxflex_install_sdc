@@ -8,29 +8,12 @@
   tags:
     - sdc
 
-- name: "Create Master and Slave IP list"
-  vars:
-    master_slave_private_ip: []
-  set_fact:
-    master_slave_private_ip: "{{ hostvars[item].ansible_facts.all_ipv4_addresses | \
-    ipaddr(vxflex_mdm_cidr) + master_slave_private_ip }}"
-  with_items: "{{ groups.mdm }}"
-  tags:
-    - sdc
-
-- name: Display master_slave_private_ip
-  debug:
-    var: master_slave_private_ip
-  run_once: True
-  tags:
-    - [ never, debug ]
-
 - name: "Install SDC on CentOS"
   yum:
     name: /tmp/EMC-ScaleIO-sdc-{{ vxflex_version }}.el7.x86_64.rpm
     state: present
   environment:
-    MDM_IP: "{{ master_slave_private_ip }}"
+    MDM_IP: {{ vxflex_vip_ip }}
   when: ansible_facts['distribution'] == "CentOS"
   tags:
     - sdc
