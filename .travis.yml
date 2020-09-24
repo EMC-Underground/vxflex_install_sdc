@@ -2,6 +2,8 @@
 language: python
 python: "2.7"
 
+if: tag IS present
+
 # Use the new container infrastructure
 sudo: false
 
