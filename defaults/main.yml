@@ -1,2 +1,3 @@
 ---
 # defaults file for vxflex_install_sdc
+sdc_version: false

@@ -18,9 +18,18 @@
   tags:
     - sdc
 
+- name: "Set sdc fact based on vars"
+  set_fact:
+    vxflex_sdc_version: "{{ vxflex_version if not sdc_version else sdc_version }}-esx{{ esx_version }}"
+  when: ansible_facts['distribution'] == "VMware"
+  tags:
+    - sdc
+
+
+
 - name: "Copy SDC vib for ESXi"
   copy:
-    src: ./files/sdc-{{ vxflex_version }}-esx6.0.zip
+    src: ./files/sdc-{{ vxflex_sdc_version }}.zip
     dest: /tmp/
   when: ansible_facts['distribution'] == "VMware"
   tags:
