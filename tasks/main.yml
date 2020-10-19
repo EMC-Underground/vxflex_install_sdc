@@ -1,16 +1,20 @@
 ---
 # tasks file for vxflex_install_sdc
+- name: Get version of CentOS
+  command: cat /etc/redhat-release | awk '{print $4}' | awk -F. '{print $1}'
+  register: el_version
+  
 - name: "Copies the scaleio client for CentOS to /tmp"
   copy:
-    src: ./files/EMC-ScaleIO-sdc-{{ vxflex_version }}.el7.x86_64.rpm
-    dest: /tmp/EMC-ScaleIO-sdc-{{ vxflex_version }}.el7.x86_64.rpm
+    src: ./files/EMC-ScaleIO-sdc-{{ vxflex_version }}.el{{ el_version }}.x86_64.rpm
+    dest: /tmp/EMC-ScaleIO-sdc-{{ vxflex_version }}.el{{ el_version }}.x86_64.rpm
   when: ansible_facts['distribution'] == "CentOS"
   tags:
     - sdc
 
 - name: "Install SDC on CentOS"
   yum:
-    name: /tmp/EMC-ScaleIO-sdc-{{ vxflex_version }}.el7.x86_64.rpm
+    name: /tmp/EMC-ScaleIO-sdc-{{ vxflex_version }}.el{{ el_version }}.x86_64.rpm
     state: present
   environment:
     MDM_IP: "{{ vxflex_vip_ip }}"
