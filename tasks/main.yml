@@ -3,6 +3,8 @@
 - name: Get version of CentOS
   command: cat /etc/redhat-release | awk '{print $4}' | awk -F. '{print $1}'
   register: el_version
+  tags:
+    - sdc
   
 - name: "Copies the scaleio client for CentOS to /tmp"
   copy:
@@ -28,8 +30,6 @@
   when: ansible_facts['distribution'] == "VMware"
   tags:
     - sdc
-
-
 
 - name: "Copy SDC vib for ESXi"
   copy:
